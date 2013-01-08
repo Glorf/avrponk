@@ -60,5 +60,6 @@ void SPI1::begin(){
 	PORTG|=_BV(PG5); //STOR DOWN
 	PORTB|=_BV(PB4); //ETH DOWN
 	PORTB&=~_BV(PB3); //MISO UP
-
+	SPCR|=_BV(SPE);
+	SPCR|=_BV(MSTR);
 };
