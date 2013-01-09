@@ -62,4 +62,5 @@ void SPI1::begin(){
 	PORTB&=~_BV(PB3); //MISO UP
 	SPCR|=_BV(SPE);
 	SPCR|=_BV(MSTR);
+	DDRB|=_BV(PB0); //CONST!
 };
