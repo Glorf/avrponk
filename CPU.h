@@ -18,11 +18,10 @@ class SPI1 {
 	public:
 		SPI1();
 		~SPI1();
+		int st; //ETH/STOR STATUS
 		void begin();
 		void ethernet(int stat);
 		void storage(int stat);
-		void send(int mesg);
-		int receive();
 };
 class CPU {
 	public:

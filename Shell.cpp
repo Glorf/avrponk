@@ -1,6 +1,8 @@
 #include "Shell.h"
 #include "Libc.h"
+#include "SD.h" //TESTING
 POS core;
+SD sd; //TESTING
 void Shell::begin() {
 	if (core.booted==0) {
 		core.boot(19200,0xFF,0x01);
@@ -44,7 +46,8 @@ void Shell::execute(string cmd){
 		core.putfln("      #    ");
 		core.putfln("     #     ");
 	}
-	else if(strcmp(cmd,"kalkulator")==0){
-
+	else if(strcmp(cmd,"read")==0){
+		core.putch(sd.read());
+		core.putfln("");
 	}
 }

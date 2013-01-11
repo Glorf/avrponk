@@ -5,5 +5,7 @@ class SD {
 	public:
 		char get();
 		void send(char c);
+		char read();
+		void write(char c);
 };
 #endif

@@ -4,10 +4,12 @@
 #include "Picaso.h"
 Picaso vga;
 CPU cpu;
+SPI1 spi;
 Keyboard kbd;
 void POS::boot(int baud,int background, int resolution)
 {
 	vga.up();
+	spi.begin();
 	vga.setBaud(baud);
 	vga.clearScreen();
 	vga.replaceBackground(0xFFFF); //dev
