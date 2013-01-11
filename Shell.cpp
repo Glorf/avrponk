@@ -35,13 +35,13 @@ void Shell::update(char c) {
 }
 void Shell::execute(string cmd){
 	if(strcmp(cmd,"ponk")==0){
-		core.putfln("    ###    ");
-		core.putfln("   #####   ");
-		core.putfln("  #######  ");
-		core.putfln("   #####    PonK Industries product! ");
-		core.putfln("    ###    ");
+		core.putfln("   #####    ");
+		core.putfln("  #     #   ");
+		core.putfln(" #   #   #  ");
+		core.putfln("  # #   #    PonK Industries product! ");
+		core.putfln("   #####    ");
 		core.putfln("     #     ");
-		core.putfln("     #     ");
+		core.putfln("      #    ");
 		core.putfln("     #     ");
 	}
 	else if(strcmp(cmd,"kalkulator")==0){
