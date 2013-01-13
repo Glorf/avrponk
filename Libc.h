@@ -4,6 +4,7 @@ typedef char * string;
 #include <avr/io.h>
 #include <util/delay.h>
 #include <string.h>
+#include <stdlib.h>
 class POS{
 	private:
 		int line=0;

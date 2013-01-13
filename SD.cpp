@@ -32,16 +32,17 @@ void SD::init(){
 }
 int SD::readsect(int sectnum){
 	sendcmd(0x51,512*sectnum,0xFF);
+	PORTG&=~_BV(PG5);
 	char tmp;
 	tmp=get();
-	for(uint16_t xa;xa<1000;xa++){
+	for(uint16_t xa;xa<10000;xa++){
 		if(tmp==0x00) break;
 		send(0xFF);
 		tmp=get();
 	}
 	if(tmp!=0x00) return 1;
 	tmp=0;
-	for(uint16_t xb;xb<1000;xb++){
+	for(uint16_t xb;xb<10000;xb++){
 		if(tmp==0xFE) break;
 		send(0xFF);
 		tmp=get();
@@ -54,5 +55,6 @@ int SD::readsect(int sectnum){
     }
     send(0xFF);
     send(0xFF);
+    PORTG|=_BV(PG5);
     return 0;
 }

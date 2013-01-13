@@ -9,7 +9,7 @@ class Shell {
 		int request;
 		int response;
 		void end();
-		void execute(string cmd);
+		void execute();
 };
 
 #endif

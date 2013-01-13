@@ -15,16 +15,15 @@ void Shell::begin() {
 char Shell::scan(){
 	return core.scanf();
 }
-char s[20];
+char s[50];
 void Shell::update(char c) {
 	switch(c){
 		case 0: break;
 		case 1:
 			core.putfln("");
-			core.putfln(s);
-			execute(s);
+			execute();
 			core.putf(">");
-			for(int i=0;i<20;i++){
+			for(int i=0;i<50;i++){
 				s[i]=0;
 			}
 			break;
@@ -35,8 +34,49 @@ void Shell::update(char c) {
 		default: s[strlen(s)]=c; core.putch(c); break; //impl!
 	}
 }
-void Shell::execute(string cmd){
-	if(strcmp(cmd,"ponk")==0){
+void Shell::execute(){
+	/*
+	 * THIS CODE IS NOT WORKING AT ALL!
+	 */
+	char argv[10][10];
+	memset(argv,0,sizeof(argv));
+	char main[10];
+	memset(main,0,sizeof(main));
+	int argc=0;
+	int is=0;
+	while(is<strlen(s)){
+		if(s[is]==' '){
+			if(is+1==strlen(s)){
+				is+=1;
+				break;
+			}
+			argc+=1;
+			is+=1;
+			break;
+		}
+		main[is]=s[is];
+		is+=1;
+	}
+	while(s[is]==' ') is+=1;
+	int iar=0;
+	while(is<strlen(s)){
+		if(s[is]==' '){
+			argc+=1;
+			is+=1;
+		}
+		argv[argc-1][iar]=s[is];
+		iar+=1;
+		is+=1;
+	}
+	//APPS DEFINITIONS
+	if(strcmp(main,"ponk")==0){
+		if(argc>0){
+			core.putf("You selected: ");
+			for(int i=0;i<=argc;i++){
+				core.putfln((string)argv[i]);
+			}
+			core.putfln("");
+		}
 		core.putfln("   #####    ");
 		core.putfln("  #     #   ");
 		core.putfln(" #   ##  #  ");
@@ -46,7 +86,11 @@ void Shell::execute(string cmd){
 		core.putfln("      #    ");
 		core.putfln("    ##     ");
 	}
-	else if(strcmp(cmd,"read")==0){
+	else if(strcmp(main,"dodaj")==0){
+		int r=(int)argv[0]+(int)argv[1];
+		core.putf((string)r);
+	}
+	else if(strcmp(main,"read")==0){
 		sd.readsect(1);
 		for(int i=0;i<20;i++){
 			core.putch(sd.sect[i]);
