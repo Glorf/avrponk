@@ -39,15 +39,17 @@ void Shell::execute(string cmd){
 	if(strcmp(cmd,"ponk")==0){
 		core.putfln("   #####    ");
 		core.putfln("  #     #   ");
-		core.putfln(" #   #   #  ");
+		core.putfln(" #   ##  #  ");
 		core.putfln("  # #   #    PonK Industries product! ");
 		core.putfln("   #####    ");
 		core.putfln("     #     ");
 		core.putfln("      #    ");
-		core.putfln("     #     ");
+		core.putfln("    ##     ");
 	}
 	else if(strcmp(cmd,"read")==0){
-		core.putch(sd.read());
-		core.putfln("");
+		sd.readsect(1);
+		for(int i=0;i<20;i++){
+			core.putch(sd.sect[i]);
+		}
 	}
 }
