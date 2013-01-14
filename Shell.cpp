@@ -5,7 +5,7 @@ POS core;
 SD sd; //TESTING
 void Shell::begin() {
 	if (core.booted==0) {
-		core.boot(19200,0xFF,0x01);
+		core.boot(19200,0x00,0x01);
 		core.booted+=1;
 	}
 	core.putfln("PonK OS 1.0");
@@ -31,13 +31,10 @@ void Shell::update(char c) {
 			core.backch(s[strlen(s)-1]);
 			s[strlen(s)-1]=0;
 			break;
-		default: s[strlen(s)]=c; core.putch(c); break; //impl!
+		default: s[strlen(s)]=c; core.putch(c); break;
 	}
 }
 void Shell::execute(){
-	/*
-	 * THIS CODE IS NOT WORKING AT ALL!
-	 */
 	char argv[10][10];
 	memset(argv,0,sizeof(argv));
 	char main[10];
@@ -63,6 +60,7 @@ void Shell::execute(){
 		if(s[is]==' '){
 			argc+=1;
 			is+=1;
+			iar=0;
 		}
 		argv[argc-1][iar]=s[is];
 		iar+=1;
@@ -72,8 +70,9 @@ void Shell::execute(){
 	if(strcmp(main,"ponk")==0){
 		if(argc>0){
 			core.putf("You selected: ");
-			for(int i=0;i<=argc;i++){
-				core.putfln((string)argv[i]);
+			for(int i=0;i<argc;i++){
+				core.putf(argv[i]);
+				core.putf(" ");
 			}
 			core.putfln("");
 		}
@@ -87,8 +86,15 @@ void Shell::execute(){
 		core.putfln("    ##     ");
 	}
 	else if(strcmp(main,"dodaj")==0){
-		int r=(int)argv[0]+(int)argv[1];
-		core.putf((string)r);
+		uint32_t r=0;
+		char w[10];
+		for(int i=0;i<argc;i++){
+			r=r+atoi(argv[i]);
+		}
+		itoa(r,w,10);
+		core.putfln(w);
+		memset(w,0,sizeof(w));
+		r=0;
 	}
 	else if(strcmp(main,"read")==0){
 		sd.readsect(1);

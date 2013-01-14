@@ -64,10 +64,8 @@ void Picaso::clearScreen(){
 }
 void Picaso::replaceBackground(int color){
 	usart.send(0x42);
-	int col2=color/0xFF;
-	int col1=(col2*0xFF)-color;
-	usart.send(0x00); //impl
-	usart.send(0x00); //impl
+	usart.send(color>>8);
+	usart.send(color&0xFF);
 	usart.get();
 }
 void Picaso::setResolution(int val){
@@ -78,16 +76,16 @@ void Picaso::setResolution(int val){
 }
 void Picaso::drawRectangle(int x, int y, int lx, int ly, int color){
 	usart.send(0x72);
-	usart.send(0); //civ
-	usart.send(x);
-	usart.send(0); //civ
-	usart.send(y);
-	usart.send(0); //civ
-	usart.send(lx);
-	usart.send(0); //civ
-	usart.send(ly);
-	usart.send(0); //civ
-	usart.send(color);
+	usart.send(x>>8);
+	usart.send(x&0xFF);
+	usart.send(y>>8);
+	usart.send(y&0xFF);
+	usart.send(lx>>8);
+	usart.send(lx&0xFF);
+	usart.send(ly>>8);
+	usart.send(ly&0xFF);
+	usart.send(color>>8);
+	usart.send(color&0xFF);
 	usart.get();
 }
 void Picaso::printASCIIChar(int ch, int column, int row, int color){
@@ -106,8 +104,8 @@ void Picaso::printASCIIText(string ch,int column,int row, int color){
 		usart.send(ch[i]);
 		usart.send(column+i);
 		usart.send(row);
-		usart.send(0xFF); //civ
-		usart.send(0xFF); //civ
+		usart.send(color>>8);
+		usart.send(color&0xFF);
 		usart.get();
 	}
 }

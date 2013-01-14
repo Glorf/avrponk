@@ -12,8 +12,8 @@ void POS::boot(int baud,int background, int resolution)
 	spi.begin();
 	vga.setBaud(baud);
 	vga.clearScreen();
-	vga.replaceBackground(0xFFFF); //dev
-	vga.setResolution(0x01);
+	vga.replaceBackground(background);
+	vga.setResolution(resolution);
 }
 char POS::scanf()
 {
