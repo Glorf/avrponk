@@ -62,7 +62,10 @@ void SPI1::begin(){
 	DDRB&=~_BV(PB3); //MISO IN
 	DDRB|=_BV(PB2); //MOSI OUT
 	DDRB|=_BV(PB1); //SCK OUT
+    SPCR &= ~(_BV(SPR1)); //clk/16
+    SPCR |= _BV(SPR0); //clk/16
 	SPCR|=_BV(SPE);
 	SPCR|=_BV(MSTR);
 	DDRB|=_BV(PB0); //CONST!
+	SPSR &= ~(_BV(SPI2X)); //NO 2X
 };

@@ -11,6 +11,8 @@ void Shell::begin() {
 	core.putfln("PonK OS 1.0");
 	core.putfln("PonK Industries Polska");
 	core.putf(">");
+	sd.init(); //TESTING
+	sd.start();
 }
 char Shell::scan(){
 	return core.scanf();
@@ -96,8 +98,25 @@ void Shell::execute(){
 		memset(w,0,sizeof(w));
 		r=0;
 	}
+	else if(strcmp(main,"pomnoz")==0){
+		uint32_t r=1;
+		char w[10];
+		for(int i=0;i<argc;i++){
+			r=r*atoi(argv[i]);
+		}
+		itoa(r,w,10);
+		core.putfln(w);
+		memset(w,0,sizeof(w));
+		r=0;
+	}
 	else if(strcmp(main,"read")==0){
-		sd.readsect(1);
+		int result=sd.readsect(1);
+		switch(result){
+		case 0: core.putfln("success!"); break;
+		case 1: core.putfln("first trap fail"); break;
+		case 2: core.putfln("second trap fail"); break;
+		default: core.putfln("unknown trap"); break;
+		}
 		for(int i=0;i<20;i++){
 			core.putch(sd.sect[i]);
 		}

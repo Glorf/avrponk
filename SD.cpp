@@ -8,53 +8,56 @@ void SD::send(char c){
 	SPDR=c;
 	while(!SPSR&_BV(SPIF));
 }
-char SD::sendcmd(char cmd, uint32_t arg, char crc){
+void SD::start(){
 	PORTG&=~_BV(PG5);
+}
+void SD::stop(){
+	PORTG|=_BV(PG5);
+}
+void SD::sendcmd(char cmd, uint32_t arg, char crc){
 	send(0xFF);
 	send(cmd);
-	send(arg>>24);
-	send(arg>>16);
-	send(arg>>8);
-	send(arg);
+	send((arg>>24)&0xFF);
+	send((arg>>16)&0xFF);
+	send((arg>>8)&0xFF);
+	send((arg>>0)&0xFF);
 	send(crc);
 	send(0xFF);
 	send(0xFF);
-	return get();
-	PORTG|=_BV(PG5);
+	get();
 }
 void SD::init(){
+    char i;
+    stop();                    //disable CS
+    for(i=0; i < 10; i++)
+    send(0xFF);                // Send 10 * 8 = 80 clock pulses 400 kHz
+    start();                //enable CS
+    for(i=0; i < 2; i++)
+    send(0xFF);
 	sendcmd(0x40,0,0x95); //REBOOT
-	char rez=1;
+	char rez=get();
 	while(rez!=0){
 		sendcmd(0x41,0,0xFF);
 		rez=get();
 	}
+	SPCR &= ~(_BV(SPR0));
 }
 int SD::readsect(int sectnum){
-	sendcmd(0x51,512*sectnum,0xFF);
-	PORTG&=~_BV(PG5);
-	char tmp;
+	sendcmd(0x51,0,0xFF);
+	int tmp=1;
 	tmp=get();
-	for(uint16_t xa;xa<10000;xa++){
-		if(tmp==0x00) break;
+	for(uint16_t xa=0;xa<10000;xa++){
+		if(tmp==0) break;
 		send(0xFF);
 		tmp=get();
 	}
 	if(tmp!=0x00) return 1;
-	tmp=0;
-	for(uint16_t xb;xb<10000;xb++){
-		if(tmp==0xFE) break;
-		send(0xFF);
-		tmp=get();
-	}
+	while(get()!=0xFE);
     for(int i=0;i<512;i++){
-        while(!(SPSR&_BV(SPIF)));
-        sect[i]=SPDR;
+        sect[i]=get();
         send(0xFF);
-        SPDR=get();
     }
     send(0xFF);
     send(0xFF);
-    PORTG|=_BV(PG5);
     return 0;
 }
