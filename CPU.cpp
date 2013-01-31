@@ -58,14 +58,16 @@ void SPI1::begin(){
 	DDRG|=_BV(PG5); //STOR OUT
 	DDRB|=_BV(PB4); //ETH OUT
 	PORTG|=_BV(PG5); //STOR DOWN
+	//PORTG&=~_BV(PG5); //ENABLE SDCARD
 	PORTB|=_BV(PB4); //ETH DOWN
 	DDRB&=~_BV(PB3); //MISO IN
 	DDRB|=_BV(PB2); //MOSI OUT
 	DDRB|=_BV(PB1); //SCK OUT
-    SPCR &= ~(_BV(SPR1)); //clk/16
+    SPCR &= ~_BV(SPR1); //clk/16
     SPCR |= _BV(SPR0); //clk/16
 	SPCR|=_BV(SPE);
 	SPCR|=_BV(MSTR);
 	DDRB|=_BV(PB0); //CONST!
-	SPSR &= ~(_BV(SPI2X)); //NO 2X
+	PORTB|=_BV(PB0); //CONST!
+	SPSR &= ~_BV(SPI2X); //NO 2X
 };

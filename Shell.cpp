@@ -8,11 +8,23 @@ void Shell::begin() {
 		core.boot(19200,0x00,0x01);
 		core.booted+=1;
 	}
-	core.putfln("PonK OS 1.0");
+	core.putfln("PonK OS 1.0.16");
 	core.putfln("PonK Industries Polska");
-	core.putf(">");
-	sd.init(); //TESTING
-	sd.start();
+	//core.putf(">");
+	core.putfln("SD storage initialization...");
+	sd.init();
+	core.putfln("SD storage read...");
+	int result=sd.readsect(512);
+	switch(result){
+	case 0: core.putfln("success!"); break;
+	case 1: core.putfln("first trap fail"); break;
+	case 2: core.putfln("second trap fail"); break;
+	default: core.putfln("unknown trap"); break;
+	}
+	for(int i=0;i<20;i++){
+		core.putch(sd.sect[i]);
+	}
+
 }
 char Shell::scan(){
 	return core.scanf();
@@ -110,7 +122,7 @@ void Shell::execute(){
 		r=0;
 	}
 	else if(strcmp(main,"read")==0){
-		int result=sd.readsect(1);
+		int result=sd.readsect(512);
 		switch(result){
 		case 0: core.putfln("success!"); break;
 		case 1: core.putfln("first trap fail"); break;
@@ -120,5 +132,8 @@ void Shell::execute(){
 		for(int i=0;i<20;i++){
 			core.putch(sd.sect[i]);
 		}
+	}
+	else if(strcmp(main,"init")==0){
+		sd.init(); //TESTING
 	}
 }
