@@ -2,6 +2,12 @@
 #define CPU_H
 typedef char * string;
 //#define DATA PINA&_BV(PA1)
+#define SSETH PB4
+#define SSSD PG5
+#define MISO PB3
+#define MOSI PB2
+#define SCK PB1
+#define HWSS PB0
 #include <avr/io.h>
 #include <util/delay.h>
 #include <string.h>

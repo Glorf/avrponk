@@ -6,12 +6,14 @@ class SD {
 		char get();
 		void send(char c);
 		//usable from here! up, only internal values
-		void init();
+		int init();
 		void start();
 		void stop();
-		void sendcmd(char cmd, uint32_t arg, char crc);
+		int sendcmd(char cmd, uint32_t arg);
+		int sendacmd(char cmd, uint32_t arg);
 		char sect[512];
 		int readsect(int sectnum); //read sect and put to char table sect
 		int writesect(int sectnum); //write sect to specified sectnum
+		void sdprobe();
 };
 #endif

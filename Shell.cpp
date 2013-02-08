@@ -3,27 +3,36 @@
 #include "SD.h" //TESTING
 POS core;
 SD sd; //TESTING
+SPI1 sdspi;
 void Shell::begin() {
 	if (core.booted==0) {
 		core.boot(19200,0x00,0x01);
+		//sdspi.begin();
 		core.booted+=1;
 	}
-	core.putfln("PonK OS 1.0.16");
+	core.putfln("PonK OS 1.0.72");
 	core.putfln("PonK Industries Polska");
-	//core.putf(">");
-	core.putfln("SD storage initialization...");
-	sd.init();
-	core.putfln("SD storage read...");
-	int result=sd.readsect(512);
-	switch(result){
+	core.putf(">");
+	/*core.putfln("SD storage initialization...");
+	int result1=sd.init();
+	switch(result1){
 	case 0: core.putfln("success!"); break;
 	case 1: core.putfln("first trap fail"); break;
 	case 2: core.putfln("second trap fail"); break;
 	default: core.putfln("unknown trap"); break;
 	}
-	for(int i=0;i<20;i++){
+	core.putfln("SD storage read...");
+	int result2=sd.readsect(512);
+	switch(result2){
+	case 0: core.putfln("success!"); break;
+	case 1: core.putfln("first trap fail"); break;
+	case 2: core.putfln("second trap fail"); break;
+	default: core.putfln("unknown trap"); break;
+	}
+	for(int i=0;i<512;i++){
 		core.putch(sd.sect[i]);
 	}
+	core.putfln("done");*/
 
 }
 char Shell::scan(){
@@ -134,6 +143,12 @@ void Shell::execute(){
 		}
 	}
 	else if(strcmp(main,"init")==0){
-		sd.init(); //TESTING
+		int result=sd.init();
+		switch(result){
+		case 0: core.putfln("success!"); break;
+		case 1: core.putfln("first trap fail"); break;
+		case 2: core.putfln("second trap fail"); break;
+		default: core.putfln("unknown trap"); break;
+		}
 	}
 }

@@ -55,19 +55,14 @@ int CPU::analog1()
 SPI1::SPI1(){};
 SPI1::~SPI1(){};
 void SPI1::begin(){
-	DDRG|=_BV(PG5); //STOR OUT
-	DDRB|=_BV(PB4); //ETH OUT
-	PORTG|=_BV(PG5); //STOR DOWN
-	//PORTG&=~_BV(PG5); //ENABLE SDCARD
-	PORTB|=_BV(PB4); //ETH DOWN
-	DDRB&=~_BV(PB3); //MISO IN
-	DDRB|=_BV(PB2); //MOSI OUT
-	DDRB|=_BV(PB1); //SCK OUT
-    SPCR &= ~_BV(SPR1); //clk/16
-    SPCR |= _BV(SPR0); //clk/16
-	SPCR|=_BV(SPE);
-	SPCR|=_BV(MSTR);
-	DDRB|=_BV(PB0); //CONST!
-	PORTB|=_BV(PB0); //CONST!
+	DDRG|=_BV(SSSD); //STOR OUT
+	PORTG|=_BV(SSSD);
+	DDRB&=~_BV(SSETH); //ETH OUT ?in?
+	DDRB&=~_BV(MISO); //MISO IN
+	DDRB|=_BV(MOSI); //MOSI OUT
+	DDRB|=_BV(SCK); //SCK OUT
+	SPCR = (1 << SPE) | (1 << MSTR) | (1 << SPR1) | (1 << SPR0);
+	DDRB|=_BV(HWSS); //CONST!
+	PORTB|=_BV(HWSS);
 	SPSR &= ~_BV(SPI2X); //NO 2X
 };
