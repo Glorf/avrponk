@@ -7,9 +7,10 @@ Already done:
 3)basic built-in shell
 
 To do for now:
-1) SD card driver -> SUSPENDED, strange sdcard, completely not work
+0) USART with PC via usb -> WIP
+1) SD card driver -> WIP, it was a wiring problem
 2) FS driver and implementation (FAT32,maybe ext3?)
-3) Ethernet driver, server mode -> WIP
+3) Ethernet driver, server mode
 4) Ethernet client mode (some kind of browser)
 5) basic kernel scheduler
 6) device memory extension
