@@ -65,7 +65,22 @@ void SPI1::begin(){
 	DDRB|=_BV(HWSS); //CONST!
 	PORTB|=_BV(HWSS);
 	SPSR &= ~_BV(SPI2X); //NO 2X
+	st=1;
 };
+void SPI1::send(char arg){
+	SPDR = arg;
+	while (!(SPSR & (1 << SPIF)));
+}
+char SPI1::get(){
+	send(0XFF);
+	return SPDR;
+}
+void SPI1::sdstart(){
+	PORTG&=~_BV(SSSD);
+}
+void SPI1::sdstop(){
+	PORTG|=_BV(SSSD);
+}
 int engine::init(){
 	if(stat==0){
 		DDRB|=_BV(PB5);

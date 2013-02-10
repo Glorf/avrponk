@@ -24,10 +24,12 @@ class SPI1 {
 	public:
 		SPI1();
 		~SPI1();
-		int st; //ETH/STOR STATUS
+		int st=0;
 		void begin();
-		void ethernet(int stat);
-		void storage(int stat);
+		void send(char arg);
+		char get();
+		void sdstart();
+		void sdstop();
 };
 class CPU {
 	public:

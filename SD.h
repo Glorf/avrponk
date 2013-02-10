@@ -3,12 +3,7 @@
 #include "CPU.h"
 class SD {
 	public:
-		char get();
-		void send(char c);
-		//usable from here! up, only internal values
 		int init();
-		void start();
-		void stop();
 		int sendcmd(char cmd, uint32_t arg);
 		int sendacmd(char cmd, uint32_t arg);
 		char sect[512];

@@ -3,17 +3,16 @@
 #include "SD.h" //TESTING
 POS core;
 SD sd; //TESTING
-SPI1 sdspi;
 void Shell::begin() {
 	if (core.booted==0) {
 		core.boot(19200,0x00,0x01);
-		//sdspi.begin();
+		//sd.init();
 		core.booted+=1;
 	}
-	core.putfln("PonK OS 1.0.73");
+	core.putfln("PonK OS 1.0.75");
 	core.putfln("PonK Industries Polska");
-	core.putf(">");
-	/*core.putfln("SD storage initialization...");
+	//core.putf(">");
+	core.putfln("SD storage initialization...");
 	int result1=sd.init();
 	switch(result1){
 	case 0: core.putfln("success!"); break;
@@ -32,7 +31,7 @@ void Shell::begin() {
 	for(int i=0;i<512;i++){
 		core.putch(sd.sect[i]);
 	}
-	core.putfln("done");*/
+	core.putfln("done");
 
 }
 char Shell::scan(){
