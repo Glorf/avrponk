@@ -6,6 +6,7 @@ Picaso vga;
 CPU cpu;
 SPI1 spi;
 Keyboard kbd;
+engine eng;
 void POS::boot(int baud,int background, int resolution)
 {
 	vga.up();
@@ -46,4 +47,11 @@ void POS::putfln(string s)
 void POS::putch(char c){
 	vga.printASCIIChar(c,position,line,0xFFFF);
 	position+=1;
+}
+void POS::engine(int param){
+	switch(param){
+	case 1: if(eng.init()==0) putfln("Error: Already initialized"); break;
+	case 2: if(eng.start()==0) putfln("Error: Already working or not initialized"); break;
+	case 3: if(eng.stop()==0) putfln("Error: Already not working or not initialized"); break;
+	}
 }

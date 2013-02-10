@@ -66,3 +66,27 @@ void SPI1::begin(){
 	PORTB|=_BV(HWSS);
 	SPSR &= ~_BV(SPI2X); //NO 2X
 };
+int engine::init(){
+	if(stat==0){
+		DDRB|=_BV(PB5);
+		stat=1;
+		return 1;
+	}
+	else return 0;
+}
+int engine::start(){
+	if(stat==1){
+		PORTB|=_BV(PB5);
+		stat=2;
+		return 1;
+	}
+	else return 0;
+}
+int engine::stop(){
+	if(stat==2){
+		PORTB&=~_BV(PB5);
+		stat=1;
+		return 1;
+	}
+	else return 0;
+}

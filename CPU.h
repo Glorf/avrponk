@@ -39,5 +39,13 @@ class CPU {
 		int analog2();
 		int analog3();
 };
+class engine{
+	public:
+		int init();
+		int start();
+		int stop();
+	private:
+		int stat=0;
+};
 #endif
 		

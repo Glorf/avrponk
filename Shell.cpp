@@ -10,7 +10,7 @@ void Shell::begin() {
 		//sdspi.begin();
 		core.booted+=1;
 	}
-	core.putfln("PonK OS 1.0.72");
+	core.putfln("PonK OS 1.0.73");
 	core.putfln("PonK Industries Polska");
 	core.putf(">");
 	/*core.putfln("SD storage initialization...");
@@ -149,6 +149,19 @@ void Shell::execute(){
 		case 1: core.putfln("first trap fail"); break;
 		case 2: core.putfln("second trap fail"); break;
 		default: core.putfln("unknown trap"); break;
+		}
+	}
+	else if(strcmp(main,"engine")==0){
+		if(argc==1){
+			if(strcmp(argv[0],"init")==0){
+				core.engine(1);
+			}
+			if(strcmp(argv[0],"start")==0){
+				core.engine(2);
+			}
+			if(strcmp(argv[0],"stop")==0){
+				core.engine(3);
+			}
 		}
 	}
 }

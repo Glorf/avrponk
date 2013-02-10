@@ -20,5 +20,6 @@ class POS{
 		void backch(char c);
 		void putfln(string s);
 		void putch(char c);
+		void engine(int param);
 };
 #endif
