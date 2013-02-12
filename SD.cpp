@@ -32,9 +32,9 @@ void SD::sdprobe(){
 	}
 }
 int SD::init(){
-	if (spi1.st==0){
+	//if (spi1.st==0){
 		spi1.begin();
-	}
+	//}
     spi1.sdstop();
     for (uint8_t i = 0; i < 10; i++) spi1.send(0xFF);
     spi1.sdstart();

@@ -16,8 +16,17 @@ class USART1 {
 		USART1();
 		~USART1();
 		void begin(long baudrate, int turbo);
-		void send(int info);
+		void send(char info);
 		void get();
+		void end();
+};
+class USART0 {
+	public:
+		USART0();
+		~USART0();
+		void begin(long baudrate, int turbo);
+		void send(char info);
+		char get();
 		void end();
 };
 class SPI1 {

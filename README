@@ -5,9 +5,10 @@ Already done:
 1)Basic video driver
 2)Keyboard driver
 3)basic built-in shell
+4)USART with PC via usb
 
 To do for now:
-0) USART with PC via usb -> WIP
+0) simple Python application to communicate with PC
 1) SD card driver -> WIP, it was a wiring problem
 2) FS driver and implementation (FAT32,maybe ext3?)
 3) Ethernet driver, server mode

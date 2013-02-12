@@ -1,6 +1,6 @@
 #include "CPU.h"
 /*
- * USART
+ * USART1
  */
 USART1::USART1() {}
 USART1::~USART1() {}
@@ -14,7 +14,7 @@ void USART1::begin(long baudrate, int turbo) {
 	}
 	UCSR1B = (1<<RXEN1)|(1<<TXEN1);
 }
-void USART1::send(int info){
+void USART1::send(char info){
 	while ( !( UCSR1A & (1<<UDRE1)) );
    	UDR1 = info;
 }
@@ -27,6 +27,35 @@ void USART1::end() {
 void USART1::get(){
 	while((UCSR1A&(1<<RXC1)) == 0);
 	while(UDR1!=0x06);
+}
+/*
+ * USART0
+ */
+USART0::USART0() {}
+USART0::~USART0() {}
+void USART0::begin(long baudrate, int turbo) {
+	UBRR0H = (unsigned char)(((F_CPU/(16UL*baudrate))-1)>>8);
+	UBRR0L = (unsigned char)((F_CPU/(16UL*baudrate))-1);
+	if(turbo==1){
+		UCSR0A = (1<<U2X0);
+		UBRR0H = (unsigned char)(((F_CPU/(8UL*baudrate))-1)>>8);
+		UBRR0L = (unsigned char)((F_CPU/(8UL*baudrate))-1);
+	}
+	UCSR0B = (1<<RXEN0)|(1<<TXEN0);
+}
+void USART0::send(char info){
+	while ( !( UCSR0A & (1<<UDRE0)) );
+   	UDR0 = info;
+}
+void USART0::end() {
+	UCSR0A=0;
+	UCSR0B=0;
+	UBRR0H=0;
+	UBRR0L=0;
+}
+char USART0::get(){
+	while((UCSR0A&(1<<RXC0)) == 0);
+	return UDR0;
 }
 /*
  * CPU

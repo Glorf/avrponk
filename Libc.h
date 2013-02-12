@@ -1,6 +1,7 @@
 #ifndef LIBC_H
 #define LIBC_H
 typedef char * string;
+#define serialmode 1  //FIRST CONFIGURATION VARIABLE
 #include <avr/io.h>
 #include <util/delay.h>
 #include <string.h>
@@ -13,7 +14,8 @@ class POS{
 		int booted=0;
 		int waitforack=0;
 		void gotack();
-		void boot(int baud,int background, int resolution);
+		void vgaboot(int baud,int background, int resolution);
+		void serialboot(int baud,int turbo);
 		char scanf();
 		string scanfp(char ending);
 		void putf(string s);
@@ -21,5 +23,7 @@ class POS{
 		void putfln(string s);
 		void putch(char c);
 		void engine(int param);
+		void serialprint(string s);
+		void serialprint(char ch);
 };
 #endif
