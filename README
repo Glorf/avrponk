@@ -10,13 +10,13 @@ Already done:
 
 To do for now:
 1) SD card driver -> WIP, it was a wiring problem
-2) FS driver and implementation (FAT32,maybe ext3?)
-3) Ethernet driver, server mode
-4) Ethernet client mode (some kind of browser)
-5) basic kernel scheduler
-6) device memory extension
-7) program loader (with x86 linker)
-8) advanced video driver
+2) advanced video driver
+3) FS driver and implementation (FAT32,maybe ext3?)
+4) Ethernet driver, server mode
+5) Ethernet client mode (some kind of browser)
+6) basic kernel scheduler
+7) device memory extension - utilisation of eeproms
+8) program loader (only after switch to Arduino Tre board)
 9) Shell improvements, continue development...
 
 
